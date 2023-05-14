@@ -3,14 +3,17 @@ const { session } = require("electron");
 exports.manageCookies = () => {
   let ses = session.defaultSession;
   const getCookies = () => {
-    ses.cookies
+    const cookies = ses.cookies
       .get({})
       .then((data) => {
-        
+      
+        return data
       })
       .catch((error) => {
         console.log(error);
+        return [];
       });
+    return cookies;
   };
   const isSetCookie = (data) => {
     const result = ses.cookies
@@ -42,7 +45,7 @@ exports.manageCookies = () => {
   };
 
   const setCookies = (data) => {
-    console.log(data);
+    
     ses.cookies
       .set(data)
       .then((result) => {

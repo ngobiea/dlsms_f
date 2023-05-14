@@ -28,20 +28,24 @@ const Provider = ({ children }) => {
 
   const [createClassModal, setCreateClassModal] = useState(false);
   const [joinClassModal, setJoinClassModal] = useState(false);
+
   useEffect(() => {
-    window.account.getUserType((e, userTypeReceive) => {
-      setUserType(userTypeReceive);
-    });
-    window.account.getToken(async (e, tokenReceive) => {
-      setToken(tokenReceive);
-    });
-    window.account.getUserId(async (e, userIdReceive) => {
-      setUserId(userIdReceive);
-    });
-  }, []);
-  useEffect(() => {
-    console.log(token);
-    if (token && userType) {
+     window.account.getUserType((e, userTypeReceive) => {
+       setUserType(userTypeReceive);
+       console.log(userTypeReceive);
+
+       window.account.getToken(async (e, tokenReceive) => {
+         setToken(tokenReceive);
+         console.log(tokenReceive);
+
+         window.account.getUserId(async (e, userIdReceive) => {
+           setUserId(userIdReceive);
+           console.log(userIdReceive);
+         });
+       });
+     });
+    if (token !== "" && userType !== "") {
+      console.log('This if runs')
       fetchClassrooms();
     }
   }, [token, userType, userId]);
@@ -54,6 +58,7 @@ const Provider = ({ children }) => {
           "Content-Type": "application/json",
         },
       }
+
     );
     setClassrooms(response.data.classrooms);
     console.log(response.data);
@@ -98,28 +103,27 @@ const Provider = ({ children }) => {
   }
   const getClassroomCode = async (data) => {
     console.log(data);
-     try {
-        const response = await axios.get(
-          `http://localhost:8080/student/classrooms?code=${data.code}`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setErrorType("");
-        setCreateClassModal(false);
-        resetField("name");
-        resetField("description");
-      } catch (error) {
-        setErrorMessage(error.response.data.message);
-        setErrorType(error.response.data.type);
-        reset({ isSubmitSuccessful: false });
-      }
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/student/classrooms?code=${data.code}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setErrorType("");
+      setCreateClassModal(false);
+      resetField("name");
+      resetField("description");
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setErrorType(error.response.data.type);
+      reset({ isSubmitSuccessful: false });
+    }
     setJoinClassModal(false);
-      resetField("code");
-
+    resetField("code");
   };
   const valueToShare = {
     logout,

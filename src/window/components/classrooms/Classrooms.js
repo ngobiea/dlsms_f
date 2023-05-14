@@ -9,7 +9,7 @@ const ClassRooms = () => {
   return (
     <div className="pl-28 pr-8 pt-36 bg-gray-100 h-screen">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {classrooms.map((item, index) => {
+        {classrooms && classrooms.map((item, index) => {
           return (
             <Link to={`/classroom/${item.code}`} key={item.code}>
               <ClassRoomCard title={item.name} />

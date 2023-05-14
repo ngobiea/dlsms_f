@@ -3,8 +3,6 @@
 
 const { contextBridge, ipcRenderer } = require("electron");
 
-
-
 contextBridge.exposeInMainWorld("account", {
   exitApp: () => ipcRenderer.send("exitApp"),
   login: (userId, token, user, email) =>
@@ -14,6 +12,9 @@ contextBridge.exposeInMainWorld("account", {
   getUserType: (userType) => ipcRenderer.on("getUserType", userType),
   getToken: (token) => ipcRenderer.on("getToken", token),
   getUserId: (userId) => ipcRenderer.on("getUserId", userId),
+  getAuth: (auth) => ipcRenderer.on("getAuth", auth),
 });
+
+
 
 

@@ -1,6 +1,6 @@
 const { BrowserWindow } = require("electron");
 const path = require("path");
-exports.createAccountWindow = () => {
+exports.createAccountWindow = (isShow) => {
   const accountWindow = new BrowserWindow({
     width: 700,
     height: 750,
@@ -11,6 +11,7 @@ exports.createAccountWindow = () => {
     backgroundColor: "#759278",
     resizable: false,
     title: "account",
+    show: isShow,
   });
   accountWindow.loadFile(path.join(__dirname, "../../public/account.html"));
   return accountWindow;

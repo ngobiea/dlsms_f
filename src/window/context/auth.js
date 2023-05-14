@@ -33,8 +33,6 @@ function Provider({ children }) {
     }
   }, [userType, isSubmitSuccessful, reset]);
   useEffect(() => {
-    setCookies(localStorage.getItem('token'))
-    console.log("cookie is:" + cookies);
     window.account.getEmail((e, emailReceive) => {
       setEmail(emailReceive);
       console.log(emailReceive);
@@ -103,7 +101,6 @@ function Provider({ children }) {
         console.log(error);
         setErrorMessage(error.response.data.message);
         setErrorType(error.response.data.type);
-        // reset({ isSubmitSuccessful: false });
       });
   };
 
