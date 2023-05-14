@@ -58,5 +58,4 @@ const JoinClassroomForm = () => {
     </div>
   );
 };
-
 export default JoinClassroomForm;

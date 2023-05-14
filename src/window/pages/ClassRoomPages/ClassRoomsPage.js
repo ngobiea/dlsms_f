@@ -8,10 +8,12 @@ import AppContext from "../../context/app";
 import CreateClassroomForm from "../../components/classrooms/CreateClassroomForm";
 import JoinClassroomForm from "../../components/classrooms/JoinClassroom";
 const ClassRoomsPage = () => {
-  const { createClassModal, fetchClassrooms,joinClassModal } = useContext(AppContext);
+  const { createClassModal, fetchClassrooms,joinClassModal,token,uType } = useContext(AppContext);
   useEffect(() => {
-    fetchClassrooms();
-  }, []);
+    if (token !== "" && uType !== "") {
+      fetchClassrooms();
+    }
+  }, [fetchClassrooms]);
   return (
     <>
       <ClassroomNav />

@@ -17,18 +17,20 @@ exports.createWindow = async () => {
     mainWindow.on("ready-to-show", async () => {
       try {
         const cookies = await getCookies();
+        const auth = {}
         cookies.forEach((cookie) => {
           if (cookie["name"] === "userType") {
-            mainWindow.webContents.send("getUserType", cookie["value"]);
+            auth["userType"] = cookie["value"]
           }
           if (cookie["name"] === "userToken") {
-            mainWindow.webContents.send("getToken", cookie["value"]);
+            auth["userToken"] = cookie["value"]
           }
           if (cookie["name"] === "userId") {
-            mainWindow.webContents.send("getUserId", cookie["value"]);
+            auth["userId"] = cookie["value"]
           }
-          mainWindow.show();
         });
+          mainWindow.show();
+          mainWindow.webContents.send("getAuth", auth);
       } catch (error) {
         console.log(error);
       }
@@ -46,6 +48,7 @@ exports.createWindow = async () => {
         }
       });
       accWindow.show();
+
     });
     mainWindow = mainAppWindow.createAppWindow(false);
   }
@@ -65,19 +68,22 @@ exports.createWindow = async () => {
     mainWindow = mainAppWindow.createAppWindow(false);
     mainWindow.on("ready-to-show", async () => {
       try {
-        const cookies = await getCookies();
-        cookies.forEach((cookie) => {
-          if (cookie["name"] === "userType") {
-            mainWindow.webContents.send("getUserType", cookie["value"]);
-          }
-          if (cookie["name"] === "userToken") {
-            mainWindow.webContents.send("getToken", cookie["value"]);
-          }
-          if (cookie["name"] === "userId") {
-            mainWindow.webContents.send("getUserId", cookie["value"]);
-          }
-        });
-        mainWindow.show();
+         const cookies = await getCookies();
+         const auth = {};
+         cookies.forEach((cookie) => {
+           if (cookie["name"] === "userType") {
+             auth["userType"] = cookie["value"];
+           }
+           if (cookie["name"] === "userToken") {
+             auth["userToken"] = cookie["value"];
+           }
+           if (cookie["name"] === "userId") {
+             auth["userId"] = cookie["value"];
+           }
+         });
+         mainWindow.webContents.send("getAuth", auth);
+        
+         mainWindow.show();
       } catch (error) {
         console.log(error);
       }

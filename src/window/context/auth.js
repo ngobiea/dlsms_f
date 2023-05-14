@@ -18,7 +18,6 @@ function Provider({ children }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorType, setErrorType] = useState("");
   const [email, setEmail] = useState("");
-  const [cookies, setCookies] = useState("");
   useEffect(() => {
     if (userType === "tutor") {
       resetField("studentId");

@@ -10,7 +10,7 @@ import AppContext from "../context/app";
 import { Link, NavLink } from "react-router-dom";
 
 const SideBar = () => {
-  const { logout,userType } = useContext(AppContext);
+  const { logout,uType } = useContext(AppContext);
   const activeClass =
     "flex flex-col border-white border-l-4 items-center py-3 px-2 text-white bg-title dark:text-white hover:bg-title hover:text-white dark:hover:bg-gray-700";
   const inActiveClass =
@@ -50,7 +50,7 @@ const SideBar = () => {
           <MdOutlineAssignment className="w-6 h-6 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
           <span className="text-xs font-light">Assignments </span>
         </NavLink>
-        {userType === "tutor" ? (
+        {uType === "tutor" ? (
           <NavLink
             className={(navData) =>
               navData.isActive ? activeClass : inActiveClass
@@ -64,7 +64,7 @@ const SideBar = () => {
           ""
         )}
         {
-          userType==='tutor'?
+          uType==='tutor'?
           <NavLink
             className={(navData) =>
               navData.isActive ? activeClass : inActiveClass

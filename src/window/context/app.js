@@ -23,51 +23,41 @@ const Provider = ({ children }) => {
   const [token, setToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorType, setErrorType] = useState("");
-  const [userType, setUserType] = useState("");
-  const [userId, setUserId] = useState("");
+  const [uType, setUType] = useState("");
+  const [uId, setUId] = useState("");
 
   const [createClassModal, setCreateClassModal] = useState(false);
   const [joinClassModal, setJoinClassModal] = useState(false);
 
   useEffect(() => {
-     window.account.getUserType((e, userTypeReceive) => {
-       setUserType(userTypeReceive);
-       console.log(userTypeReceive);
-
-       window.account.getToken(async (e, tokenReceive) => {
-         setToken(tokenReceive);
-         console.log(tokenReceive);
-
-         window.account.getUserId(async (e, userIdReceive) => {
-           setUserId(userIdReceive);
-           console.log(userIdReceive);
-         });
-       });
-     });
-    if (token !== "" && userType !== "") {
-      console.log('This if runs')
-      fetchClassrooms();
+    window.account.getAuth((e, auth) => {
+      const { userType, userId, userToken } = auth;
+      setUType(userType);
+      setUId(userId);
+      setToken(userToken);
+    });
+  }, []);
+  const fetchClassrooms = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/${uType}/classrooms`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setClassrooms(response.data.classrooms);
+    } catch (error) {
+      console.log(error);
     }
-  }, [token, userType, userId]);
-  const fetchClassrooms = async () => {
-    const response = await axios.get(
-      `http://localhost:8080/${userType}/classrooms`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-        },
-      }
-
-    );
-    setClassrooms(response.data.classrooms);
-    console.log(response.data);
-  };
+  }, [uType, token]);
   const logout = () => {
     axios
       .post(`http://localhost:8080/logout`)
       .then((data) => {
-        setUserType("");
+        setUType("");
         setToken("");
         window.account.logout();
       })
@@ -139,7 +129,9 @@ const Provider = ({ children }) => {
     errorMessage,
     errorType,
     classrooms,
-    userType,
+    uType,
+    token,
+    uId,
     fetchClassrooms,
     setJoinClassModal,
     joinClassModal,

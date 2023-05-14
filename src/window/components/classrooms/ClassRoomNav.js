@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import AppContext from "../../context/app";
 const ClassroomNav = () => {
-  const { setCreateClassModal,userType, setJoinClassModal } = useContext(AppContext);
+  const { setCreateClassModal,uType, setJoinClassModal } = useContext(AppContext);
   return (
     <nav className="bg-gray-100 fixed w-full z-20 top-10 left-0 border-b border-gray-200">
       <div className="flex flex-wrap items-center justify-between  p-4">
@@ -11,10 +11,10 @@ const ClassroomNav = () => {
         </span>
         <div
           onClick={() => {
-            if (userType === "tutor") {
+            if (uType === "tutor") {
             setCreateClassModal(true);
               
-            }else if(userType === "student"){
+            }else if(uType === "student"){
               setJoinClassModal(true);
             }
           }}
@@ -25,7 +25,7 @@ const ClassroomNav = () => {
             className="text-gray-900  bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2"
           >
             <MdOutlineGroupAdd className="text-2xl mr-1" />
-            {userType === "tutor" ? "Create Classroom" : "Join Classroom"}
+            {uType === "tutor" ? "Create Classroom" : "Join Classroom"}
           </button>
         </div>
       </div>
