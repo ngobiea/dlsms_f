@@ -1,0 +1,47 @@
+/* .signUP {
+    font-family: sans-serif;
+}
+
+.close {
+    text-align: right;
+}
+
+.close-icon {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-around;
+}
+.name{
+    display: flex;
+}
+.universityId{
+    display: flex;
+
+}
+.university{
+    display: flex;
+
+}
+.first, .last ,.student, .university{
+    display: flex;
+    
+    flex-direction: column;
+}
+span{
+    color: red;
+} */
