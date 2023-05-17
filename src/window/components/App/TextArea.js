@@ -17,7 +17,7 @@ const TextArea = ({
       <textarea
         rows="4"
         {...reg(inputValue, valid)}
-        className="block p-2.5 w-full text-sm text-title bg-gray-50 rounded-lg border border-gray-300 focus:ring-title focus:border-title dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="block p-2.5 w-full text-sm text-title bg-gray-50 rounded-lg border border-gray-300 focus:ring-title focus:border-title"
         placeholder={placeholder}
       ></textarea>
       {errors[inputValue] && (

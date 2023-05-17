@@ -3,7 +3,7 @@ import { MdClose } from "react-icons/md";
 
 import AppContext from "../../context/app";
 import Input from "../App/Input";
-import TextArea from "../App/TextArea";
+import ErrorMessageA from "../error/ErrorMessageA";
 
 const JoinClassroomForm = () => {
   const {
@@ -11,8 +11,6 @@ const JoinClassroomForm = () => {
     handleSubmit,
     errorMessage,
     errors,
-    createClassroom,
-    errorType,
     setJoinClassModal,
     getClassroomCode,
   } = useContext(AppContext);
@@ -43,6 +41,7 @@ const JoinClassroomForm = () => {
                 errorMessage={"Classroom code is required and unique"}
                 errors={errors}
               />
+              {errorMessage && <ErrorMessageA errorMessage={errorMessage} />}
               <div className="flex w-full justify-center">
                 <button
                   type="submit"

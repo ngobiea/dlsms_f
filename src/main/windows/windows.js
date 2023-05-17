@@ -1,4 +1,4 @@
-const { app, ipcMain } = require("electron");
+const { app, ipcMain,clipboard } = require("electron");
 const accountWindow = require("./accountWindow");
 const mainAppWindow = require("./mainAppWindow");
 const manageCookies = require("./cookies");
@@ -89,6 +89,10 @@ exports.createWindow = async () => {
       }
     });
   });
+  ipcMain.on("copyCode", (e, code) => {
+    clipboard.writeText(code);
+    console.log(clipboard.readText());
+  })
   ipcMain.on("logout", async (e) => {
     removeCookies("https://dlsms.com", "userToken");
     removeCookies("https://dlsms.com", "userId");

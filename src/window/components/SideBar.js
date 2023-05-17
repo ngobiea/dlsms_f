@@ -7,7 +7,7 @@ import {
   MdOutlineNotificationsNone,
 } from "react-icons/md";
 import AppContext from "../context/app";
-import { Link, NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 
 const SideBar = () => {
   const { logout,uType } = useContext(AppContext);

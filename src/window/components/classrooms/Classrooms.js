@@ -11,7 +11,7 @@ const ClassRooms = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {classrooms && classrooms.map((item, index) => {
           return (
-            <Link to={`/classroom/${item.code}`} key={item.code}>
+            <Link to={`/classroom/${item._id}`} key={item.code}>
               <ClassRoomCard title={item.name} />
             </Link>
           );

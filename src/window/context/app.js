@@ -1,8 +1,9 @@
 import React, { createContext, useState, useCallback, useEffect } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 const AppContext = createContext();
 const WS = "http://localhost:8080";
 
@@ -25,11 +26,15 @@ const Provider = ({ children }) => {
   const [errorType, setErrorType] = useState("");
   const [uType, setUType] = useState("");
   const [uId, setUId] = useState("");
-
+  const [classroom, setClassroom] = useState({});
   const [createClassModal, setCreateClassModal] = useState(false);
   const [joinClassModal, setJoinClassModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    getAuthValues();
+  }, [getAuthValues]);
+  const getAuthValues = useCallback(() => {
     window.account.getAuth((e, auth) => {
       const { userType, userId, userToken } = auth;
       setUType(userType);
@@ -92,10 +97,9 @@ const Provider = ({ children }) => {
     }
   }
   const getClassroomCode = async (data) => {
-    console.log(data);
     try {
       const response = await axios.get(
-        `http://localhost:8080/student/classrooms?code=${data.code}`,
+        `http://localhost:8080/student/classrooms/${data.code}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -103,18 +107,24 @@ const Provider = ({ children }) => {
           },
         }
       );
-      setErrorType("");
-      setCreateClassModal(false);
-      resetField("name");
-      resetField("description");
+      
+      console.log(response.data.classroomId._id);
+      setJoinClassModal(false);
+      navigate("/join");
+
+      resetField("code");
+      resetField("code");
     } catch (error) {
       setErrorMessage(error.response.data.message);
       setErrorType(error.response.data.type);
       reset({ isSubmitSuccessful: false });
+      console.log(error.response.data.message);
     }
-    setJoinClassModal(false);
-    resetField("code");
   };
+  const checkClassroomRules = () => {
+    console.log("This functions runs")
+  };
+
   const valueToShare = {
     logout,
     createClassModal,
@@ -127,7 +137,6 @@ const Provider = ({ children }) => {
     isSubmitSuccessful,
     createClassroom,
     errorMessage,
-    errorType,
     classrooms,
     uType,
     token,
@@ -136,6 +145,10 @@ const Provider = ({ children }) => {
     setJoinClassModal,
     joinClassModal,
     getClassroomCode,
+    setErrorMessage,
+    checkClassroomRules,
+    classroom,
+    setClassroom
   };
 
   return (

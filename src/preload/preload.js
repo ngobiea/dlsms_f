@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld("account", {
   getToken: (token) => ipcRenderer.on("getToken", token),
   getUserId: (userId) => ipcRenderer.on("getUserId", userId),
   getAuth: (auth) => ipcRenderer.on("getAuth", auth),
+  copyCode: (code) => ipcRenderer.send("copyCode", code),
 });
 
 
