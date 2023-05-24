@@ -1,57 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 
-const MonitorPage = () => {
- return (
-   <div className="p-4 sm:ml-64">
-     <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-       <div className="grid grid-cols-3 gap-4 mb-4">
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-       </div>
-       <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-         <p className="text-2xl text-gray-400 dark:text-gray-500">Monitor Page</p>
-       </div>
-       <div className="grid grid-cols-2 gap-4 mb-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-       </div>
-       <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-         <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-       </div>
-       <div className="grid grid-cols-2 gap-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-         <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-           <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-         </div>
-       </div>
-     </div>
-   </div>
- );
+import AppContext from "../../context/app";
+import SessionCard from "../../components/Monitor/SessionCard";
+import MonitorSideBar from "../../components/Monitor/MonitorSideBar";
+import "./Video.css";
+const MonitorPage = ({ setShowCode }) => {
+  const { setCreateClassModal, uType, setJoinClassModal } =
+    useContext(AppContext);
+  // create 10 session card
+  const sessionCards = Array.from(Array(50).keys()).map((i) => (
+    <SessionCard key={i} />
+  ));
+  return (
+    <div className="flex ml-20 mt-10 h-full fixed z-30 w-full">
+      <MonitorSideBar />
+      <div className="h-screen w-full px-3 py-4 mr-20 overflow-y-auto border-r-2">
+        <div className="grid grid-cols-4 gap-1 h-0">{sessionCards}</div>
+      </div>
+    </div>
+  );
 };
 
 export default MonitorPage;

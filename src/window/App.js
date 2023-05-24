@@ -18,16 +18,15 @@ const App = () => {
       <TitleNav />
       <SideBar />
       <Routes>
-        <Route path="/"  element={<Navigate replace to={"/classroom"} />} />
+        <Route path="/" element={<Navigate replace to={"/classroom"} />} />
         <Route path="/classroom" element={<ClassRoomsPage />} />
-        <Route path="/classroom/:id/*" element={<ClassRoomPage /> } />
+        <Route path="/classroom/:id/*" element={<ClassRoomPage />} />
         <Route path="/monitor" element={<MonitorPage />} />
         <Route path="/assignment" element={<AssignmentPage />} />
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/report" element={<ReportPage />} />
         <Route path="/join" element={<JoinPage />} />
         <Route path="/image" element={<ImagePage />} />
-
       </Routes>
     </>
   );

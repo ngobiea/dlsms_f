@@ -15,7 +15,7 @@ const ClassroomChatHeader = ({ show, setShow }) => {
       <div className="relative flex items-center space-x-4">
         <MiniClassRoomCard title={"FC"} classes={"small"} />
         <NavLink
-          to={"/classroom/:id/"}
+          to={"/classroom/:id/chat"}
           className={(navData) =>
             navData.isActive ? activeClass : inActiveClass
           }

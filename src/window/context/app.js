@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import { getCurrentTime } from "../helper/util";
 const AppContext = createContext();
 const WS = "http://localhost:8080";
 
@@ -28,7 +29,12 @@ const Provider = ({ children }) => {
   const [uId, setUId] = useState("");
   const [classroom, setClassroom] = useState({});
   const [createClassModal, setCreateClassModal] = useState(false);
+  const [createAssignmentModal, setCreateAssignmentModal] = useState(false);
   const [joinClassModal, setJoinClassModal] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [time, setTime] = useState(getCurrentTime());
+  const [date, setDate] = useState(new Date());
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,7 +113,7 @@ const Provider = ({ children }) => {
           },
         }
       );
-      
+
       console.log(response.data.classroomId._id);
       setJoinClassModal(false);
       navigate("/join");
@@ -122,7 +128,45 @@ const Provider = ({ children }) => {
     }
   };
   const checkClassroomRules = () => {
-    console.log("This functions runs")
+    console.log("This functions runs");
+  };
+  const createAssignment = (data) => {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("instruction", data.instruction);
+    formData.append("points", data.points);
+    const selectedDateTime = new Date(`${date}T${time}:00`);
+    formData.append("dueDate", selectedDateTime);
+    formData.append("dueTime", time);
+    formData.append("classroomId", classroom._id);
+    if (files.length > 0) {
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+
+    console.log(formData.forEach((value, key) => console.log(key, value)));
+    axios
+      .post(`http://localhost:8080/tutor/create-assignment`, formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        resetField("title");
+        resetField("description");
+        resetField("points");
+        setFiles([]);
+        setTime(getCurrentTime());
+        setDate(new Date());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+   
   };
 
   const valueToShare = {
@@ -148,7 +192,17 @@ const Provider = ({ children }) => {
     setErrorMessage,
     checkClassroomRules,
     classroom,
-    setClassroom
+    setClassroom,
+    errorType,
+    createAssignment,
+    createAssignmentModal,
+    setCreateAssignmentModal,
+    setFiles,
+    files,
+    time,
+    setTime,
+    date,
+    setDate,
   };
 
   return (

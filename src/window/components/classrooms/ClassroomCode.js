@@ -8,10 +8,7 @@ const ClassroomCode = ({ setShowCode }) => {
     inputRef.current.select();
 
     }, [])
-  const handleButtonClick = () => {
-    // Select the content of the input field
-    inputRef.current.select();
-  };
+
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full py-12 overflow-x-hidden  bg-black bg-opacity-50 backdrop-filter overflow-y-auto md:inset-0 h-full max-h-full">

@@ -1,22 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Route, Routes } from "react-router-dom";
+import { useParams, Route, Routes, Navigate } from "react-router-dom";
 import AppContext from "../../context/app";
 import ClassRoomSideBar from "../../components/classrooms/ClassRoomSideBar";
 import ClassroomChat from "./ClassroomChat";
 import ClassroomCode from "../../components/classrooms/ClassroomCode";
+import ClassroomAssignmentPage from "../../components/Assignments/ClassroomAssignmentPage";
 import "./classroomPage.css";
 
 const ClassRoomPage = () => {
-  const { classrooms } = useContext(AppContext);
-  const [classroom, setClassroom] = useState({});
+  const { classrooms, classroom, setClassroom } = useContext(AppContext);
   const [showCode, setShowCode] = useState(false);
   const [show, setShow] = useState(false);
 
   const { id } = useParams();
   useEffect(() => {
     setClassroom(classrooms.find((item) => item._id == id));
-    console.log(classrooms);
+    console.log(classroom);
   }, []);
 
   return (
@@ -29,9 +28,14 @@ const ClassRoomPage = () => {
       }}
     >
       <ClassRoomSideBar setShowCode={setShowCode} />
+      <Routes>
+        <Route
+          path="/*"
+          element={<ClassroomChat show={show} setShow={setShow} />}
+        />
+        <Route path="assignment/*" element={<ClassroomAssignmentPage />} />
+      </Routes>
       {showCode && <ClassroomCode setShowCode={setShowCode} />}
-      <ClassroomChat show={show} setShow={setShow} />
-
     </div>
   );
 };

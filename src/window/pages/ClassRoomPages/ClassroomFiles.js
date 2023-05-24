@@ -1,6 +1,4 @@
 import React from "react";
-import { BsFiletypePdf } from "react-icons/bs";
-import { GrDocumentPdf } from "react-icons/gr";
 import FileTableData from "../../components/classrooms/FileTableData";
 import FileTableHeader from "../../components/classrooms/FileTableHeader";
 import { VscFilePdf, VscFile } from "react-icons/vsc";

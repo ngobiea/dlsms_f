@@ -5,10 +5,8 @@ const manageCookies = require("./cookies");
 const BrowserHistory = require("node-browser-history");
 
 exports.createWindow = async () => {
-  BrowserHistory.getAllHistory(60).then((history) => {
-    // console.log(history);
-  });
-  const { setCookies, removeCookies, isSetCookie, getCookie, getCookies } =
+
+  const { setCookies, removeCookies, isSetCookie, getCookies } =
     manageCookies.manageCookies();
   let mainWindow;
   let accWindow;
@@ -64,7 +62,6 @@ exports.createWindow = async () => {
     setCookies(email);
 
     accWindow.close();
-    accWindow === null;
     mainWindow = mainAppWindow.createAppWindow(false);
     mainWindow.on("ready-to-show", async () => {
       try {
@@ -98,7 +95,6 @@ exports.createWindow = async () => {
     removeCookies("https://dlsms.com", "userId");
 
     mainWindow.close();
-    mainWindow === null;
     accWindow = accountWindow.createAccountWindow(false);
     accWindow.on("ready-to-show", async () => {
       const cookies = await getCookies();

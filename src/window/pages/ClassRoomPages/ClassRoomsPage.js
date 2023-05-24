@@ -1,14 +1,13 @@
 import React, { useEffect, useContext } from "react";
 import ClassroomNav from "../../components/classrooms/ClassRoomNav";
 
-import ClassRoomSideBar from "../../components/classrooms/ClassRoomSideBar";
-import MonitorPage from "../MonitorPages/MonitorPage";
 import ClassRooms from "../../components/classrooms/Classrooms";
 import AppContext from "../../context/app";
 import CreateClassroomForm from "../../components/classrooms/CreateClassroomForm";
 import JoinClassroomForm from "../../components/classrooms/JoinClassroom";
 const ClassRoomsPage = () => {
-  const { createClassModal, fetchClassrooms,joinClassModal,token,uType } = useContext(AppContext);
+  const { createClassModal, fetchClassrooms, joinClassModal, token, uType } =
+    useContext(AppContext);
   useEffect(() => {
     if (token !== "" && uType !== "") {
       fetchClassrooms();

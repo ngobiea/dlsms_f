@@ -1,24 +1,21 @@
-import React,{useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const ImagePage = () => {
-    const [imageStream, setImageStream] = useState(null);
-    const videoRef = useRef(null);
-    useEffect(() => {
-         try {
-           navigator.mediaDevices
-             .getUserMedia({ video: true, audio: false })
-             .then((stream) => {
-               setImageStream(stream);
-             });
-         } catch (error) {
-           console.log(error);
-         }
-    }, []);
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.srcObject = imageStream;
-        }
-    }, [imageStream]);
+  const [imageStream, setImageStream] = useState(null);
+  const videoRef = useRef(null);
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then((stream) => {
+        setImageStream(stream);
+      })
+      .catch((err) => {});
+  }, []);
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.srcObject = imageStream;
+    }
+  }, [imageStream]);
   return (
     <>
       <div className="bg-white relative lg:py-20">

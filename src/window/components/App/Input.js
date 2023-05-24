@@ -10,6 +10,7 @@ const Input = ({
   errors,
 }) => {
   return (
+  
     <div className="relative z-0 w-full mb-6 group">
       <input
         type={type}
@@ -21,9 +22,7 @@ const Input = ({
         {labelText} <span className="text-red-500">*</span>
       </label>
       {errors[inputValue] && (
-        <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span className="font-medium">{errorMessage}</span>
-        </p>
+        <div className="text-red-500">{errorMessage}</div>
       )}
     </div>
   );
